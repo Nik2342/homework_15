@@ -18,7 +18,7 @@ class Product:
         )
 
     def __add__(self, other):
-        if not isinstance(other, type(self)):
+        if type(self) != type(other):
             raise TypeError
         return (self.__price * self.quantity) + (other.__price * other.quantity)
 
