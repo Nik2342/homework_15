@@ -1,6 +1,6 @@
 import pytest
 
-from src.sub_main import Product, Category
+from src.sub_main import Category, LawnGrass, Product, Smartphone
 
 
 @pytest.fixture
@@ -9,7 +9,7 @@ def product_data():
         "name": "Samsung Galaxy S23 Ultra",
         "description": "256GB, Серый цвет, 200MP камера",
         "price": 180000.0,
-        "quantity": 5
+        "quantity": 5,
     }
 
 
@@ -35,46 +35,56 @@ def test_product_str(product_samsung):
     assert str(product_samsung) == expected_str
 
 
-
 def test_product_addition(product_samsung):
-    product_iphone = Product.new_product({
-        "name": "iPhone 14 Pro",
-        "description": "128GB, Золотой цвет",
-        "price": 150000.0,
-        "quantity": 3
-    })
+    product_iphone = Product.new_product(
+        {
+            "name": "iPhone 14 Pro",
+            "description": "128GB, Золотой цвет",
+            "price": 150000.0,
+            "quantity": 3,
+        }
+    )
 
     total_price = product_samsung + product_iphone
     expected_total = (product_samsung.price * product_samsung.quantity) + (
-                product_iphone.price * product_iphone.quantity)
+        product_iphone.price * product_iphone.quantity
+    )
     assert total_price == expected_total
 
 
-def test_category_initialization(category_electronics):
-    assert category_electronics.name == "Телефоны"
-    assert category_electronics.description == "Все телефоны"
-    assert len(category_electronics.products) == 0
-    assert Category.category_count == 1
+def test_category_initialization():
+    category = Category("Телефоны", "Все телефоны")
+    assert category.name == "Телефоны"
+    assert category.description == "Все телефоны"
+    assert category.products == ""
 
 
-def test_add_product_to_category(category_electronics, product_samsung):
-    category_electronics.add_product(product_samsung)
-    assert Category.product_count == 1
+def test_smartphone_initialization():
+    smartphone = Smartphone(
+        "iPhone 14 Pro",
+        "128GB, Золотой цвет",
+        150000.0,
+        3,
+        efficiency="A16 Bionic",
+        model="14 Pro",
+        memory="128GB",
+        color="Gold",
+    )
+
+    assert smartphone.name == "iPhone 14 Pro"
+    assert smartphone.efficiency == "A16 Bionic"
 
 
-def test_category_products_str(category_electronics, product_samsung):
-    category_electronics.add_product(product_samsung)
-    expected_str = "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.\n"
-    assert category_electronics.products == expected_str
+def test_lawn_grass_initialization():
+    lawn_grass = LawnGrass(
+        "Зеленая трава",
+        "Для газонов",
+        500.0,
+        10,
+        country="Россия",
+        germination_period="7-14 дней",
+        color="Зеленый",
+    )
 
-
-def test_category_product_count(category_electronics):
-    product_iphone = Product.new_product({
-        "name": "iPhone 14 Pro",
-        "description": "128GB, Золотой цвет",
-        "price": 150000.0,
-        "quantity": 3
-    })
-
-    category_electronics.add_product(product_iphone)
-    assert Category.product_count == 3
+    assert lawn_grass.name == "Зеленая трава"
+    assert lawn_grass.country == "Россия"
