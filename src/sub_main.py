@@ -1,7 +1,7 @@
-from src.base_class import BaseClass, MixinLog
+from src.base_class import BaseProduct, MixinLog
 
 
-class Product(MixinLog, BaseClass):
+class Product(MixinLog, BaseProduct):
     def __init__(self, name, description, price, quantity):
         self.name = name
         self.description = description

@@ -93,3 +93,15 @@ def test_lawn_grass_initialization():
 def test_add_product_wrong_type(category_electronics):
     with pytest.raises(TypeError):
         category_electronics.add_product("hello")
+
+
+def test_repr():
+    product = Product(
+        name="iPhone 14 Pro",
+        description="128GB, Золотой цвет",
+        price=150000.0,
+        quantity=3,
+    )
+    assert (
+        repr(product) == "Product('iPhone 14 Pro', '128GB, Золотой цвет', 150000.0, 3)"
+    )
