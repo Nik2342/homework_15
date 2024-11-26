@@ -7,7 +7,9 @@ from src.sub_main import Category, Product
 def load_data() -> list:
     """Функция получения данных с json-файла"""
     current_dir = os.path.dirname(__file__)  # Получаем директорию текущего файла
-    path = os.path.join(current_dir, "..", "products.json")  # Поднимаемся на уровень выше и добавляем
+    path = os.path.join(
+        current_dir, "..", "products.json"
+    )  # Поднимаемся на уровень выше и добавляем
     with open(path, "r", encoding="utf-8") as file:
         data = json.load(file)
     return data
@@ -21,10 +23,15 @@ def create_class_obj():
         products = []
         for el in data["products"]:
             product = Product(
-                name=el["name"], description=el["description"], price=el["price"], quantity=el["quantity"]
+                name=el["name"],
+                description=el["description"],
+                price=el["price"],
+                quantity=el["quantity"],
             )
             products.append(product)
 
-        category = Category(name=el["name"], description=el["description"], products=products)
+        category = Category(
+            name=el["name"], description=el["description"], products=products
+        )
         categories.append(category)
     return categories
