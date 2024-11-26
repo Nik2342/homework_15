@@ -88,3 +88,8 @@ def test_lawn_grass_initialization():
 
     assert lawn_grass.name == "Зеленая трава"
     assert lawn_grass.country == "Россия"
+
+
+def test_add_product_wrong_type(category_electronics):
+    with pytest.raises(TypeError):
+        category_electronics.add_product("hello")

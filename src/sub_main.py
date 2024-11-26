@@ -1,4 +1,7 @@
-class Product:
+from src.base_class import BaseClass, MixinLog
+
+
+class Product(MixinLog, BaseClass):
     def __init__(self, name, description, price, quantity):
         self.name = name
         self.description = description
