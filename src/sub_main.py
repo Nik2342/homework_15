@@ -1,3 +1,5 @@
+from itertools import product
+
 from src.base_class import BaseProduct, MixinLog
 
 
@@ -7,6 +9,8 @@ class Product(MixinLog, BaseProduct):
         self.description = description
         self.__price = price
         self.quantity = quantity
+        if self.quantity == 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
         super().__init__()
         print(repr(self))
 
@@ -66,6 +70,13 @@ class Category:
         for product in self.__products:
             product_str += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
         return product_str
+
+    def avg_sum_cat(self):
+        try:
+            avg_sum = sum(product for product in self.__products)
+            return avg_sum / len(self.__products)
+        except ZeroDivisionError:
+            return 0
 
 
 class Smartphone(Product):

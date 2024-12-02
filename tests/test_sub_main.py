@@ -105,3 +105,18 @@ def test_repr():
     assert (
         repr(product) == "Product('iPhone 14 Pro', '128GB, Золотой цвет', 150000.0, 3)"
     )
+
+    def test_null(self):
+        with pytest.raises(
+            ValueError, match="Товар с нулевым количеством не может быть добавлен"
+        ):
+            Product(
+                "Samsung Galaxy S23 Ultra",
+                "256GB, Серый цвет, 200MP камера",
+                180000.0,
+                0,
+            )
+
+    def test_avg(self):
+        category_smartphones = Category("Смартфоны", "", [])
+        assert category_smartphones.avg_sum_cat() == 0
